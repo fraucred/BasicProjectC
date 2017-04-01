@@ -1,0 +1,116 @@
+/*
+Groupe: ABDELMALKI Noha, MARCELIN Rebecca, TANG Caroline
+Date: 30/03/2017
+Descritption du proiet: EXERCICE 4
+
+*/
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main(int argv, char ** argc)
+{
+    srand(time(NULL));
+    int str[65];
+    int nbStudents[365] = {0};
+    int i;
+    int week;
+    int day;
+    int birth;
+    int choice;
+    int nbRandom;
+
+    printf("     ESGI\n\n\n");
+
+    while (choice != 1 || choice != 2 || choice != 3 || choice != 4){
+        printf("Vous accedez au tableau des anniversaires des etudiants de l'ESGI.\n    Comment voulez-vous proceder?\n\n");
+        printf("\n 1. Saisir manuellement vos donnees. (saisir '1')\n");
+        printf("\n 2. Generer aleatoirement des donnees dans le tableau (saisir '2')\n");
+        printf("\n 3. Afficher les anniversaires des etudiants. (saisir '3')\n");
+        printf("\n 4. Afficher le nombre d'etudiants ne le meme jour. (saisir '4')\n");
+        printf("\n 5. Semaine\n\n");
+        scanf("%d", &choice);
+        switch(choice){
+
+        case 1:
+            printf("* Vous avez choisi l'option 1 *\n\n");
+
+            //Execution de la demande
+            printf("\n==== ANNIVERSAIRES ===\n\n");
+            for(i = 0; i < 65; i++) {
+                printf("\nSaisir le iour de de naissance\n");
+                scanf("%d",&birth);
+                str[i] = birth;
+            //Delimiter le nombre de iour (entre 1 et 365 iours)
+                while (birth < 0 || birth >= 365){
+                    fflush(stdin);
+                    printf("Attention! Le iour de naissance est compris entre 1 et 365 iours");
+                    printf("\nResaisir le iour de naissance\n");
+                    scanf("%d",&birth);
+                }
+            //Si condition respectee, ranger la valeur dans le tableau
+
+            }
+
+            //Sortir de l'instruction
+            break;
+
+        case 2:
+            printf("* Vous avez choisi l'option 2 *\n\n");
+
+            //Execution de la demande
+            printf("\n==== ANNIVERSAIRES ====\n\n");
+            //Générer un nombre aléatoire en 1 et 365
+
+            for (i = 0; i < 65; i++){
+                nbRandom = rand() % 365;
+                str[i] = nbRandom;
+                printf("%d ", str[i]);
+
+            }
+            printf("\n\n\n");
+            break;
+        case 3:
+            printf("* Vous avez choisi l'option 3 *\n\n");
+
+            for (i = 0; i < 65; i++){
+                printf("\nEtudiant no%d ne le %deme iour de l'annee\n\n", i+1, str[i]);
+            }
+            break;
+
+        case 4:
+            printf("\n* Vous avez choisi l'option 4 *\n\n");
+
+            //Execution de la demande
+            for (i = 0; i < 65; i++) {
+                //Recuperer la valeur du tableau (jour)
+                day = str[i] - 1; //-1 car le tableau va de 0 à 64
+                nbStudents[day] = nbStudents[day] + 1; //+1 car le tableau est "decale"
+            }
+            for (i = 0; i < 365; i++){
+                if (nbStudents[i] >= 2){
+                    printf("\n%d etudiants ont leur anniversaire le iour %d\n\n", nbStudents[i], i+1);
+
+                }
+            }
+            break;
+        case 5:
+            printf("\n* Vous avez choisi l'option 5 *\n\n");
+            week = 365 / 7; //nombre de semaines
+            printf("Il y a %d semaines.\n", week);
+            for (i = 0; i < 52; i++){
+                week = nbStudents[i] - 1;
+                week = week + 1;
+                printf("La semaine %d contient le plus de naissances.", week);
+            }
+
+            break;
+            //Execution de la demande
+        default:
+            printf("\nVous devez saisir les chiffres correspondant.\n    Recommencez.\n");
+        }
+
+    }
+    system("pause");
+    return 0;
+}
